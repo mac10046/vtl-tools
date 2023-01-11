@@ -1,0 +1,33 @@
+<div class="container">
+  <h1>JSON To Velocity Template Converter</h1>
+  <form name="vtl-converter" [formGroup]="vtlForm" *ngIf="vtlForm">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Input JSON</h3>
+            <textarea class="form-control" id="inputJSON" rows="10" formControlName="inputJson"></textarea>
+        </div>
+        <div class="col-md-6">
+            <h3>Velocity Template Output</h3>
+            <textarea class="form-control" id="outputVelocityTemplate" rows="10" formControlName="outputVTL"></textarea>
+        </div>
+    </div>
+    <br>
+    <button class="btn btn-primary" type="button" id="convertJSONToVelocityTemplate" (click)="convertJSONToVelocityTemplate()">Convert</button>
+  </form>
+</div>
+
+<script>
+  // Selecting our input and output elements
+  let inputJSONElement = document.getElementById("inputJSON");
+  let outputVelocityTemplateElement = document.getElementById("outputVelocityTemplate");
+
+  // Updating our inputJSON variable on every change to the input
+  inputJSONElement.addEventListener("change", function() {
+      inputJSON = JSON.parse(inputJSONElement.value);
+  });
+
+  // Updating our outputVelocityTemplate element on every change to the output
+  outputVelocityTemplateElement.addEventListener("change", function() {
+      outputVelocityTemplateElement.value = outputVelocityTemplate;
+  });
+</script>
