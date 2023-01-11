@@ -26,14 +26,14 @@ export class VtlConverterComponent {
     {\n`;
     try {
       inputJSON = JSON.parse(inputJSON);
-      output += this.recursiveApproach(inputJSON, start);
+      output += this.recursiveApproach(inputJSON, start, '$inputRoot');
       this.vtlForm.controls['outputVTL'].setValue(output + '}');
     } catch (error) {
       this.errorMessage = error;
     }
   }
 
-  recursiveApproach(inputJSON: any, output: string) {
+  recursiveApproach(inputJSON: any, output: string, path: string) {
     this.tabCounter = this.tabCounter + 1;
     // Iterating through each element in the input JSON object
     for (const [key, value] of Object.entries(inputJSON)) {
@@ -41,21 +41,21 @@ export class VtlConverterComponent {
       if (typeof value == 'string')
         output +=
           this.addTabs(this.tabCounter) +
-          `\t"${key}" : "$util.escapeJavaScript($inputRoot.${key})"\n`;
+          `\t"${key}" : "$util.escapeJavaScript(${path}.${key})"\n`;
       else if (typeof value == 'number')
         output +=
           this.addTabs(this.tabCounter) +
-          `\t"${key}" : "$util.escapeJavaScript($inputRoot.${key})"\n`;
+          `\t"${key}" : "$util.escapeJavaScript(${path}.${key})"\n`;
       else if (typeof value == 'object') {
         if (Array.isArray(value)) {
           output +=
             this.addTabs(this.tabCounter) +
-            `\t"${key}" : $util.escapeJavaScript($inputRoot.${key})\n`;
+            `\t"${key}" : $util.escapeJavaScript(${path}.${key})\n`;
         } else {
           output +=
             this.addTabs(this.tabCounter) +
             `"${key}" : ` +
-            this.recursiveApproach(value, '{\n\t') +
+            this.recursiveApproach(value, '{\n\t', path + '.' + key) +
             this.addTabs(this.tabCounter) + '}' +
             `\n`;
         }
@@ -77,6 +77,33 @@ export class VtlConverterComponent {
     }
     return '';
     debugger;
+  }
+
+  convertSample() {
+    this.vtlForm.controls['inputJson'].setValue(`{
+      "glossary": {
+        "title": "example glossary",
+        "GlossDiv": {
+          "title": "S",
+          "GlossList": {
+            "GlossEntry": {
+              "ID": "SGML",
+              "SortAs": "SGML",
+              "GlossTerm": "Standard Generalized Markup Language",
+              "Acronym": "SGML",
+              "Abbrev": "ISO 8879:1986",
+              "GlossDef": {
+                "para": "A meta-markup language, used to create markup languages such as DocBook.",
+                "GlossSeeAlso": ["GML", "XML"]
+              },
+              "GlossSee": "markup"
+            }
+          }
+        }
+      }
+    }`);
+
+    this.convertJSONToVelocityTemplate();
   }
 }
 
