@@ -13,6 +13,7 @@
     </div>
     <br>
     <button class="btn btn-primary" type="button" id="convertJSONToVelocityTemplate" (click)="convertJSONToVelocityTemplate()">Convert</button>
+    <p class="text-danger mt-2" *ngIf="errorMessage">Check Your JSON, {{errorMessage}}</p>
   </form>
 </div>
 
