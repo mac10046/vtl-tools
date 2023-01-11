@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { VtlConverterComponent } from './tools/vtl-converter/vtl-converter.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    VtlConverterComponent
+    VtlConverterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
