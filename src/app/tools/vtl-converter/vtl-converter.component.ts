@@ -56,7 +56,8 @@ export class VtlConverterComponent {
             this.addTabs(this.tabCounter) +
             `"${key}" : ` +
             this.recursiveApproach(value, '{\n\t', path + '.' + key) +
-            this.addTabs(this.tabCounter) + '}' +
+            this.addTabs(this.tabCounter) +
+            '}' +
             `\n`;
         }
       }
@@ -66,17 +67,12 @@ export class VtlConverterComponent {
   }
 
   addTabs(tabCounter: number) {
-    try {
-      if (tabCounter > 0) {
-        let temp = Array(tabCounter).fill('\t').join('');
-        return temp;
-      }
-    } catch (error) {
-      debugger;
-      console.log(error);
+    if (tabCounter > 0) {
+      let temp = Array(tabCounter).fill('\t').join('');
+      return temp;
     }
+
     return '';
-    debugger;
   }
 
   convertSample() {
