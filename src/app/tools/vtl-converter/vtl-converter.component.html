@@ -18,19 +18,3 @@
     <p class="text-danger mt-2" *ngIf="errorMessage">Check Your JSON, {{errorMessage}}</p>
   </form>
 </div>
-
-<script>
-  // Selecting our input and output elements
-  let inputJSONElement = document.getElementById("inputJSON");
-  let outputVelocityTemplateElement = document.getElementById("outputVelocityTemplate");
-
-  // Updating our inputJSON variable on every change to the input
-  inputJSONElement.addEventListener("change", function() {
-      inputJSON = JSON.parse(inputJSONElement.value);
-  });
-
-  // Updating our outputVelocityTemplate element on every change to the output
-  outputVelocityTemplateElement.addEventListener("change", function() {
-      outputVelocityTemplateElement.value = outputVelocityTemplate;
-  });
-</script>
